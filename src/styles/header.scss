@@ -1,0 +1,22 @@
+nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  }
+
+li {
+  padding: 20px;
+}
+
+a:link {
+  text-decoration: none;
+}
