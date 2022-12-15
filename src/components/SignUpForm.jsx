@@ -9,7 +9,7 @@ import supabase from '../services/supabase';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUpForm() {
+export default function SignUpForm({setModal}) {
   const navigate = useNavigate();
 
   const errorToast = useRef(null);
@@ -35,7 +35,11 @@ export default function SignUpForm() {
       return;
     }
 
-    navigate('/');
+    navigate('');
+  }
+
+  const onClick = () => {
+    setModal(true);
   }
 
   return (
@@ -61,9 +65,12 @@ export default function SignUpForm() {
           <span>
             <Button label="Signup" />
             <br />
-            <Button onClick={() => navigate('/signin')} label="Already have an account?" className="p-button-link" />
+
           </span>
+
         </form>
+        <Button onClick={(e) => onClick(e)
+        } label="Already have an account?" className="p-button-link" />
       </div>
     </div>
   )

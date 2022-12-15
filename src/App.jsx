@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from "./components/Header.jsx";
 import Home from "./views/Home.jsx";
 import MyFlashcards from "./views/MyFlashcards.jsx";
@@ -6,20 +6,50 @@ import Train from "./views/Train.jsx";
 import SignIn from "./views/SignIn.jsx";
 import reactLogo from './assets/react.svg'
 import './App.css'
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import supabase from "./services/supabase.js";
 
 function App() {
 
-  const [log, setLog] = useState("");
+  const [isLogged, setIsLogged] = useState(null);
+  // const [userId, setUserId] = useState(null);
+
+
+  useEffect(() => {
+
+    const isUserLogged = async() => {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        setIsLogged(false)
+        return;
+      }
+
+      setIsLogged(true);
+      console.log("is logged? : ", isLogged);
+
+
+    }
+
+    isUserLogged();
+
+  }, [isLogged]);
+
+  const onClick = (e) => {
+    e.preventDefault();
+    setIsLogged( (prev)=> !prev)
+  }
 
   return (
     <Router>
-      <Header log={log}/>
+      <button onClick={ (e) => onClick(e)}>Przełącz</button>
+      {isLogged ? "Zalogowany" : "NIE"}
+      <Header isLogged={isLogged} setIsLogged={setIsLogged}/>
       <Routes>
         <Route path="/"  element={< Home/>}/>
-        <Route path="myflashcards"  element={< MyFlashcards/>}/>
-        <Route path="train"  element={< Train/>}/>
-        <Route path="signin"  element={< SignIn setLog={setLog}/>} />
+        <Route path="myflashcards"  element={< MyFlashcards isLogged={isLogged}/>}/>
+        <Route path="train"  element={< Train isLogged={isLogged}/>}/>
+        <Route path="signin"  element={< SignIn setIsLoggedProp={setIsLogged}/>} />
 
       </Routes>
     </Router>

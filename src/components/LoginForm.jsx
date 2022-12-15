@@ -9,7 +9,7 @@ import supabase from '../services/supabase';
 import { useNavigate } from 'react-router-dom';
 import {useState} from "react";
 
-export default function LoginForm({setLog}) {
+export default function LoginForm({setLog, setModal}) {
 
 
   const navigate = useNavigate();
@@ -34,13 +34,13 @@ export default function LoginForm({setLog}) {
 
     if (!error) {
       localStorage.setItem('userData', JSON.stringify(user));
-
+      setLog(true);
       navigate('../myflashcards');
     }
   }
 
   const handleOnClick = () => {
-    setLog("logged");
+    setModal(false);
   }
   return (
     <div className="signin-container">
@@ -59,13 +59,14 @@ export default function LoginForm({setLog}) {
           <br />
           <span>
             <Button label="Signin" />
-            <br />
-            <Button onClick={() => navigate('/signup')} label="Create account" className="p-button-link" />
+
           </span>
+
         </form>
+        <br/>
         <Button onClick={ (e) => {
           e.preventDefault();
-          handleOnClick()}}>Klik</Button>
+          handleOnClick()}}>First time user? Sign Up!</Button>
       </div>
     </div>
   )

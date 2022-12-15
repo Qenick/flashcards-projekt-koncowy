@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LoginForm from "../components/LoginForm.jsx";
 import SignUpForm from "../components/SignUpForm";
 
-function SignIn({setLog}) {
+function SignIn({setIsLoggedProp}) {
+  const [modal, setModal] = useState(true);
+
   return (
     <div>
-      <LoginForm setLog={setLog}/>
-      <SignUpForm/>
+      { modal ? <LoginForm setModal={setModal} setLog={setIsLoggedProp}/> :  <SignUpForm setModal={setModal}/> }
+
     </div>
   );
 }

@@ -1,9 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
 
-function Train() {
-  return (
-    <div>Train</div>
-  );
+
+
+function Train({isLogged}) {
+
+  const [isLog, setIsLog] = useState(isLogged);
+  const navigate = useNavigate();
+
+
+  useEffect( () => {
+    !isLog ? navigate('../signin') : null
+  }, [isLog])
+
+  if (isLog) {
+    return (
+      <div>Train</div>
+    );
+  }
+
+
+
 }
 
 export default Train;
