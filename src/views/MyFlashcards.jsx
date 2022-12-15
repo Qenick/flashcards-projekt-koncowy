@@ -25,6 +25,34 @@ function MyFlashcards({isLogged}) {
     const date = new Date( );
     const timePassed = date.getTime();
 
+    const futureSpaceCalc = (lastSpace) => {
+      switch (lastSpace) {
+        case 0:
+          return 1;
+          break;
+        case 1:
+          return 3;
+          break;
+        case 3:
+          return 7;
+          break;
+        case 7:
+          return 14;
+          break;
+          case 14:
+            return 31;
+            break;
+            case 31:
+            return 62;
+            break;
+        case 62:
+          return 62;
+          break;
+        default:
+          return 1
+      }
+    }
+    console.log(futureSpaceCalc(3));
     const toAdd = {
       front: e.target.elements.front.value,
       back: e.target.elements.back.value,
@@ -46,25 +74,27 @@ function MyFlashcards({isLogged}) {
     return (
       <div>
         <h1>My flashcards</h1>
-        <form onSubmit={submit}>
-          <input type="text" id="front" value={formInput.front} onChange={() => {
-            setFormInput(prevState => ({
-              ...prevState,
-              front: event.target.value
-            }))
-          }}/>
-          <input type="text" id="back" value={formInput.back} onChange={() => {
-            setFormInput(prevState => ({
-              ...prevState,
-              back: event.target.value
-            }))
-          }}/>
-          <button type="submit">Submit</button>
-          <div>
-            {allFlashcards.map((el, i) => <div key={i}><p>{el.front}</p><p>{el.back}</p></div>)}
-          </div>
-        </form>
-
+        <div>
+          <form onSubmit={submit}>
+            <input type="text" id="front" value={formInput.front} onChange={(e) => {
+              setFormInput(prevState => ({
+                ...prevState,
+                front: e.target.value
+              }))
+            }}/>
+            <input type="text" id="back" value={formInput.back} onChange={(e) => {
+              setFormInput(prevState => ({
+                ...prevState,
+                back: e.target.value
+              }))
+            }}/>
+            <button type="submit">Submit</button>
+            <div>
+              <></>
+              {allFlashcards.map((el, i) => <div key={i}><p>{el.front}</p><p>{el.back}</p></div>)}
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

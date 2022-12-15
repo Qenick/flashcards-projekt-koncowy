@@ -35,15 +35,9 @@ function App() {
 
   }, [isLogged]);
 
-  const onClick = (e) => {
-    e.preventDefault();
-    setIsLogged( (prev)=> !prev)
-  }
 
   return (
     <Router>
-      <button onClick={ (e) => onClick(e)}>Przełącz</button>
-      {isLogged ? "Zalogowany" : "NIE"}
       <Header isLogged={isLogged} setIsLogged={setIsLogged}/>
       <Routes>
         <Route path="/"  element={< Home/>}/>

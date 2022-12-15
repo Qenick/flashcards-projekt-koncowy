@@ -19,12 +19,12 @@ function Header({isLogged, setIsLogged}) {
   //     useNavigate('.../');
   //   }
   // }
-
+  const nagivate = useNavigate();
   const logout = (e) => {
     e.preventDefault();
     setIsLogged(false);
     localStorage.clear();
-
+    nagivate('./')
   }
   return (
     <div>
