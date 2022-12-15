@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import supabase from "../services/supabase.js";
+import Flashcard from "../components/Flashcard.jsx";
 
-function MyFlashcards({isLogged}) {
+function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
   const [allFlashcards, setAllFlashcards] = useState([]);
   const [formInput, setFormInput] = useState({
     front: "",
@@ -17,8 +19,14 @@ function MyFlashcards({isLogged}) {
 
 
   useEffect( () => {
-    !isLog ? navigate('../signin') : null
+    !isLog ? navigate('../signin') : null;
+
   }, [isLog]);
+
+  useEffect( () => {
+    !isLog ? navigate('../signin') : null;
+    setAllFlashcards(flashcards);
+  }, [flashcards]);
 
   const submit = (e) => {
     e.preventDefault()
@@ -49,7 +57,9 @@ function MyFlashcards({isLogged}) {
           return 62;
           break;
         default:
-          return 1
+          return 1;
+          break;
+
       }
     }
     console.log(futureSpaceCalc(3));
@@ -61,15 +71,42 @@ function MyFlashcards({isLogged}) {
       lastSpace: 0,
       futureSpace: 1
     }
-    setAllFlashcards(prev => [toAdd, ...prev]);
+
     console.log(toAdd);
+
+    const saveFlashcard = async () => {
+      const { data, error } = await supabase
+        .from('flashcards')
+        .insert([
+          {
+            user: userId,
+            front: toAdd.front,
+            back: toAdd.back,
+            // creationDate: JSON.stringify(toAdd.creationDate),
+            // lastDone: JSON.stringify(toAdd.lastDone),
+            // lastSpace: JSON.stringify(0),
+            // futureSpace: JSON.stringify(1)
+
+          },
+        ]);
+
+      if (!error) {
+        // toast.current.show({severity: 'success', summary: 'Success', detail: 'Code snippet saved successfully!'});
+        fetchFlashcards();
+      }
+    }
+
+    saveFlashcard();
+
+
+
     setFormInput({
       front: "",
       back: ""
     });
   }
 
-
+//bez poniższego
   if (isLogged) {
     return (
       <div>
@@ -80,6 +117,7 @@ function MyFlashcards({isLogged}) {
               setFormInput(prevState => ({
                 ...prevState,
                 front: e.target.value
+
               }))
             }}/>
             <input type="text" id="back" value={formInput.back} onChange={(e) => {
@@ -90,8 +128,8 @@ function MyFlashcards({isLogged}) {
             }}/>
             <button type="submit">Submit</button>
             <div>
-              <></>
-              {allFlashcards.map((el, i) => <div key={i}><p>{el.front}</p><p>{el.back}</p></div>)}
+
+              {allFlashcards.map((el) => <Flashcard key={el.id} cardId={el.id} front={el.front} back={el.back} />)}
             </div>
           </form>
         </div>

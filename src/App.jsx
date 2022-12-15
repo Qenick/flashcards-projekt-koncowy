@@ -12,8 +12,21 @@ import supabase from "./services/supabase.js";
 function App() {
 
   const [isLogged, setIsLogged] = useState(null);
-  // const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [allFlashcards, setAllFlashcards] = useState([])
 
+  const fetchFlashcards = async() => {
+    let { data: flashcards, error } = await supabase
+      .from('flashcards')
+      .select()
+      .eq('user', `${userId}`)
+
+    if (!error) {
+      const sortedFlashcards = flashcards.sort( (a, b) => b.id -a.id);
+      setAllFlashcards(sortedFlashcards);
+      console.log(flashcards);
+    }
+  }
 
   useEffect(() => {
 
@@ -26,12 +39,25 @@ function App() {
       }
 
       setIsLogged(true);
+      console.log("user_id", user.id);
+      setUserId(user.id);
       console.log("is logged? : ", isLogged);
-
 
     }
 
+    // const fetchFlashcards = async() => {
+    //   let { data: flashcards, error } = await supabase
+    //     .from('flashcards')
+    //     .select('*')
+    //
+    //   if (!error) {
+    //     setAllFlashcards(flashcards);
+    //     console.log(flashcards);
+    //   }
+    // }
+
     isUserLogged();
+    fetchFlashcards();
 
   }, [isLogged]);
 
@@ -41,8 +67,8 @@ function App() {
       <Header isLogged={isLogged} setIsLogged={setIsLogged}/>
       <Routes>
         <Route path="/"  element={< Home/>}/>
-        <Route path="myflashcards"  element={< MyFlashcards isLogged={isLogged}/>}/>
-        <Route path="train"  element={< Train isLogged={isLogged}/>}/>
+        <Route path="myflashcards"  element={< MyFlashcards isLogged={isLogged} userId={userId} flashcards={allFlashcards} fetchFlashcards={fetchFlashcards}/>}/>
+        <Route path="train"  element={< Train isLogged={isLogged} flashcards={allFlashcards}/>}/>
         <Route path="signin"  element={< SignIn setIsLoggedProp={setIsLogged}/>} />
 
       </Routes>
