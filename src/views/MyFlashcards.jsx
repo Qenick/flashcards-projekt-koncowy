@@ -84,7 +84,8 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
             creationDate: toAdd.creationDate,
             lastDone: toAdd.lastDone,
             lastSpace: 0,
-            futureSpace: 1
+            futureSpace: 1,
+            nextTrainDate: toAdd.lastDone + (toAdd.futureSpace * 60000)
 
           },
         ]);

@@ -68,7 +68,7 @@ function App() {
       <Routes>
         <Route path="/"  element={< Home/>}/>
         <Route path="myflashcards"  element={< MyFlashcards isLogged={isLogged} userId={userId} flashcards={allFlashcards} fetchFlashcards={fetchFlashcards}/>}/>
-        <Route path="train"  element={< Train isLogged={isLogged} flashcards={allFlashcards}/>}/>
+        <Route path="train"  element={< Train isLogged={isLogged} flashcards={allFlashcards} userId={userId}/>}/>
         <Route path="signin"  element={< SignIn setIsLoggedProp={setIsLogged}/>} />
 
       </Routes>
