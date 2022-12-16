@@ -2,19 +2,14 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 
-// import illustration from '../assets/website-development.svg';
-
 import supabase from '../services/supabase';
 
 import { useNavigate } from 'react-router-dom';
-import {useState} from "react";
+
 
 export default function LoginForm({setLog, setModal}) {
 
-
   const navigate = useNavigate();
-
-  const [userId, setUserId] = useState({});
   const singinUser = async (e) => {
     e.preventDefault();
 
@@ -39,34 +34,24 @@ export default function LoginForm({setLog, setModal}) {
     }
   }
 
-  const handleOnClick = () => {
+  const handleOnClick = (e) => {
+    e.preventDefault();
     setModal(false);
   }
+
+
   return (
-    <div className="signin-container">
-      <div className="signin-form-container">
-        <h1><i className="pi pi-lock"></i> Signin</h1>
-        <form onSubmit={(e) => singinUser(e)} className='signin-form'>
-          {/* Email */}
-          <span className="p-input-icon-left">
-            <i className="pi pi-user" />
+    <div>
+      <div>
+        <h1>Signin</h1>
+        <form onSubmit={singinUser}>
             <InputText placeholder="Email" />
-          </span>
-          <span className="p-input-icon-left">
-            <i className="pi pi-lock" />
             <Password toggleMask feedback={false} placeholder='Password' />
-          </span>
           <br />
-          <span>
-            <Button label="Signin" />
-
-          </span>
-
+            <Button type="submit" label="Signin" />
         </form>
         <br/>
-        <Button onClick={ (e) => {
-          e.preventDefault();
-          handleOnClick()}}>First time user? Sign Up!</Button>
+        <Button onClick={handleOnClick}>First time user? Sign Up!</Button>
       </div>
     </div>
   )

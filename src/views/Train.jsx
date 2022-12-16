@@ -14,7 +14,8 @@ function Train({isLogged, flashcards, userId}) {
   const [fails, setFails] = useState(0);
   const [goodInfo, setGoodInfo] = useState(false);
   const [badInfo, setBadInfo] = useState(false);
-  const [lastAnswer, setLastAnswer] = useState()
+  const [lastAnswer, setLastAnswer] = useState();
+  const [startButton, setStartButton] = useState(true);
 
   const navigate = useNavigate();
 
@@ -118,9 +119,13 @@ function Train({isLogged, flashcards, userId}) {
     setBadInfo(false);
   }
 
-
+  const handleStart = (e) => {
+    e.preventDefault();
+    setStartButton(false);
+  }
   //przycisk start
-  //ilość błędów
+
+
 
   if (cardsToTrain.length === 0) {
    return (
@@ -165,9 +170,22 @@ function Train({isLogged, flashcards, userId}) {
 
   if (isLog && cardsToTrain.length > 0) {
 
+    if (startButton) {
+      return (
+        <div>
+          <h1>Welcome to your training session</h1>
+          <p>Hello, you have {cardsToTrain.length} cards to train.</p>
+
+         <button onClick={handleStart}>Start training</button>
+        </div>
+      )
+    }
+
+
     if (currentCard >= cardsToTrain.length) {
       return (
         <div>
+          <h1>Congratulations on completing your training session</h1>
           <h2>Statistics</h2>
           <p>Repeated flashcards: {flashcards.length}</p>
           <p>Correct answers: {points}</p>

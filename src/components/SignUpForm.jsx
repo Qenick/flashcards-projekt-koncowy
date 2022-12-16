@@ -1,9 +1,7 @@
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-
-
+// import { Toast } from 'primereact/toast';
 import supabase from '../services/supabase';
 
 import { useRef } from 'react';
@@ -20,7 +18,6 @@ export default function SignUpForm({setModal}) {
     const [ email, password, repassword ] = e.target.elements;
 
     if (password.value !== repassword.value) {
-      errorToast.current.show({severity: 'error', summary: 'Error', detail: 'Password and re-entered password must be the same'});
       return;
     }
 
@@ -31,7 +28,6 @@ export default function SignUpForm({setModal}) {
     });
 
     if (error) {
-      errorToast.current.show({severity: 'error', summary: 'Error', detail: 'An error occured. Please try again later.'});
       return;
     }
 

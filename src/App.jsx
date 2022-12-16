@@ -4,7 +4,6 @@ import Home from "./views/Home.jsx";
 import MyFlashcards from "./views/MyFlashcards.jsx";
 import Train from "./views/Train.jsx";
 import SignIn from "./views/SignIn.jsx";
-import reactLogo from './assets/react.svg'
 import './App.css'
 import {useState, useEffect} from "react";
 import supabase from "./services/supabase.js";
