@@ -24,7 +24,6 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
   }, [isLog]);
 
   useEffect( () => {
-    !isLog ? navigate('../signin') : null;
     setAllFlashcards(flashcards);
   }, [flashcards]);
 
@@ -82,10 +81,10 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
             user: userId,
             front: toAdd.front,
             back: toAdd.back,
-            // creationDate: JSON.stringify(toAdd.creationDate),
-            // lastDone: JSON.stringify(toAdd.lastDone),
-            // lastSpace: JSON.stringify(0),
-            // futureSpace: JSON.stringify(1)
+            creationDate: toAdd.creationDate,
+            lastDone: toAdd.lastDone,
+            lastSpace: 0,
+            futureSpace: 1
 
           },
         ]);
@@ -106,7 +105,7 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
     });
   }
 
-//bez poniższego
+//bez poniższego if na milisekundę pokazywała się terść niedostępna ??
   if (isLogged) {
     return (
       <div>
@@ -120,18 +119,20 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
 
               }))
             }}/>
+            <br />
             <input type="text" id="back" value={formInput.back} onChange={(e) => {
               setFormInput(prevState => ({
                 ...prevState,
                 back: e.target.value
               }))
             }}/>
+            <br />
             <button type="submit">Submit</button>
+          </form>
             <div>
 
-              {allFlashcards.map((el) => <Flashcard key={el.id} cardId={el.id} front={el.front} back={el.back} />)}
+              {allFlashcards.map((el) => <Flashcard key={el.id} cardId={el.id} front={el.front} back={el.back} fetchFlashcards={fetchFlashcards}/>)}
             </div>
-          </form>
         </div>
       </div>
     );

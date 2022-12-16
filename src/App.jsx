@@ -59,7 +59,7 @@ function App() {
     isUserLogged();
     fetchFlashcards();
 
-  }, [isLogged]);
+  }, [isLogged, userId]);
 
 
   return (

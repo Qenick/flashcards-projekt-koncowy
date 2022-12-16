@@ -11,7 +11,7 @@ function Train({isLogged}) {
 
   useEffect( () => {
     !isLog ? navigate('../signin') : null
-  }, [isLog])
+  }, [isLogged])
 
   if (isLog) {
     return (
