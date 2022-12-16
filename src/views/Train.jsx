@@ -99,7 +99,7 @@ function Train({isLogged, flashcards, userId}) {
         })
         .eq('id', cardsToTrain[currentCard].id);
 
-      setCardsToTrain(prevState => [...prevState, cardsToTrain[currentCard]]);
+
       setFails(prevState => prevState +1);
       setBadInfo(true);
       setLastAnswer(answerInput);
@@ -136,7 +136,7 @@ function Train({isLogged, flashcards, userId}) {
       <div>
         <form onSubmit={handleNext}>
           <h1>Good answer</h1>
-          <p>It was {currentCard} from {cardsToTrain.length} </p>
+          <p>{currentCard} cards DONE out of {cardsToTrain.length} </p>
           <button type={"submit"}>Next card</button>
         </form>
       </div>
@@ -169,7 +169,9 @@ function Train({isLogged, flashcards, userId}) {
       return (
         <div>
           <h2>Statistics</h2>
+          <p>Repeated flashcards: {flashcards.length}</p>
           <p>Correct answers: {points}</p>
+          <p>Number of fails: {fails}</p>
         </div>
       )
     }
