@@ -32,36 +32,6 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
     const date = new Date( );
     const timePassed = date.getTime();
 
-    const futureSpaceCalc = (lastSpace) => {
-      switch (lastSpace) {
-        case 0:
-          return 1;
-          break;
-        case 1:
-          return 3;
-          break;
-        case 3:
-          return 7;
-          break;
-        case 7:
-          return 14;
-          break;
-          case 14:
-            return 31;
-            break;
-            case 31:
-            return 62;
-            break;
-        case 62:
-          return 62;
-          break;
-        default:
-          return 1;
-          break;
-
-      }
-    }
-    console.log(futureSpaceCalc(3));
     const toAdd = {
       front: e.target.elements.front.value,
       back: e.target.elements.back.value,
@@ -91,14 +61,12 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
         ]);
 
       if (!error) {
-        // toast.current.show({severity: 'success', summary: 'Success', detail: 'Code snippet saved successfully!'});
+
         fetchFlashcards();
       }
     }
 
     saveFlashcard();
-
-
 
     setFormInput({
       front: "",
@@ -109,32 +77,35 @@ function MyFlashcards({isLogged, userId, flashcards, fetchFlashcards}) {
 //bez poniższego if na milisekundę pokazywała się terść niedostępna ??
   if (isLogged) {
     return (
-      <div>
+      <div className="main-container">
         <h1>My flashcards</h1>
-        <div>
-          <form onSubmit={submit}>
-            <input type="text" id="front" value={formInput.front} onChange={(e) => {
+        <p>You have done {allFlashcards.length} cards.</p>
+        <div className="card">
+          <form className="login-form" onSubmit={submit}>
+            <h2>Create new flashcard</h2>
+            <textarea className="card-content, input-edit" cols="40" id="front" value={formInput.front} placeholder="Enter front fo the card" onChange={(e) => {
               setFormInput(prevState => ({
                 ...prevState,
                 front: e.target.value
 
               }))
             }}/>
-            <br />
-            <input type="text" id="back" value={formInput.back} onChange={(e) => {
+
+            <textarea className="card-content, input-edit" cols="40" id="back" value={formInput.back} placeholder="Enter back of the card" onChange={(e) => {
               setFormInput(prevState => ({
                 ...prevState,
                 back: e.target.value
               }))
             }}/>
-            <br />
-            <button type="submit">Submit</button>
+
+            <button className="button-navy" type="submit">Save card</button>
           </form>
+        </div>
             <div>
 
               {allFlashcards.map((el) => <Flashcard key={el.id} cardId={el.id} front={el.front} back={el.back} fetchFlashcards={fetchFlashcards}/>)}
             </div>
-        </div>
+
       </div>
     );
   }

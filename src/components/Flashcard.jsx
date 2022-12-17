@@ -51,32 +51,39 @@ function Flashcard({front, back, cardId, fetchFlashcards}) {
   }
 
   return (
-    <div>
-      {!toEdit && (<div>
-        <p>{front}</p>
-        <p>{back}</p>
-        <button onClick={handleEdit}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
-      </div>)}
+    <div className="card">
+      {!toEdit && (
+        <div>
+          <div className="card-content">
+            <p>Front side:</p>
+            <p>{front}</p>
+          </div>
+          <div className="card-content-back">
+            <p>Back side:</p>
+            <p>{back}</p>
+          </div>
+          <button className="button-navy" onClick={handleEdit}>Edit</button>
+          <button className="button-navy" onClick={handleDelete}>Delete</button>
+        </div>)}
 
       {toEdit &&
       (<div>
         <form>
           <br />
-          <input type="text" value={cardFront} placeholder={front} onChange={ (e) => {
+          <input className="card-content, input-edit" type="text" value={cardFront} placeholder={front} onChange={ (e) => {
             e.preventDefault();
             setCardFront(e.target.value);
           }
 
           }/>
           <br />
-          <input type="text" value={cardBack} placeholder={back} onChange={ (e) => {
+          <input className="card-content-back, input-edit" type="text" value={cardBack} placeholder={back} onChange={ (e) => {
             e.preventDefault();
             setCardBack(e.target.value);
           }
           }/>
         </form>
-      <button onClick={handleCardChange}>Save changes</button>
+      <button className="button-navy" onClick={handleCardChange}>Save changes</button>
       </div>)
       }
     </div>

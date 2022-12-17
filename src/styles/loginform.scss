@@ -13,6 +13,8 @@
     text-align: center;
     margin: 5px auto;
   }
+
+
 }
 
 
@@ -22,6 +24,7 @@
   background-color: $base-color-yellow;
   border-bottom: $base-color-yellow 2px solid;
   padding: 5px;
+  cursor: pointer;
 
 
   &:hover {

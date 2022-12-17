@@ -47,15 +47,12 @@ function Train({isLogged, flashcards, userId}) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Odpowiedź: ", answerInput);
 
     const date = new Date();
     const milDate = date.getTime();
-    console.log("ilość kart: ", cardsToTrain.length);
+
 
     if (cardsToTrain[currentCard].back === answerInput) {
-      console.log("success");
-
       const futureSpaceCalc = (lastSpace) => {
         switch (lastSpace) {
           case 0:
@@ -76,7 +73,6 @@ function Train({isLogged, flashcards, userId}) {
             return 1;
         }
       }
-
       const { error } = await supabase
         .from('flashcards')
         .update({
@@ -104,10 +100,8 @@ function Train({isLogged, flashcards, userId}) {
       setFails(prevState => prevState +1);
       setBadInfo(true);
       setLastAnswer(answerInput);
-
-
     }
-
+    
     setCurrentCard(prevState => prevState + 1);
     setAnswerInput("");
   }
@@ -123,9 +117,6 @@ function Train({isLogged, flashcards, userId}) {
     e.preventDefault();
     setStartButton(false);
   }
-  //przycisk start
-
-
 
   if (cardsToTrain.length === 0) {
    return (
@@ -138,11 +129,11 @@ function Train({isLogged, flashcards, userId}) {
 
   if (goodInfo) {
     return (
-      <div>
+      <div className="card">
         <form onSubmit={handleNext}>
-          <h1>Good answer</h1>
+          <h1 className="correct">GOOD ANSWER</h1>
           <p>{currentCard} cards DONE out of {cardsToTrain.length} </p>
-          <button type={"submit"}>Next card</button>
+          <button className="button-navy" type={"submit"}>Next card</button>
         </form>
       </div>
     )
@@ -150,19 +141,19 @@ function Train({isLogged, flashcards, userId}) {
 
   if (badInfo) {
     return (
-      <div>
+      <div className="card">
         <form onSubmit={handleNext}>
-          <h1>Bad answer</h1>
-          <p>
-            Question from Front: {cardsToTrain[currentCard - 1].front}
+          <h1 className="alert" >BAD ANSWER</h1>
+          <p className="hyphens">
+            Card front: {cardsToTrain[currentCard - 1].front}
           </p>
-          <p>
+          <p className="correct">
             Correct answer: {cardsToTrain[currentCard - 1].back}
           </p>
-          <p>
+          <p className="hyphens">
             Your answer: {lastAnswer}
           </p>
-          <button type={"submit"}>Next card</button>
+          <button className="button-navy" type={"submit"}>Next card</button>
         </form>
       </div>
     )
@@ -172,11 +163,11 @@ function Train({isLogged, flashcards, userId}) {
 
     if (startButton) {
       return (
-        <div>
+        <div className="card">
           <h1>Welcome to your training session</h1>
           <p>Hello, you have {cardsToTrain.length} cards to train.</p>
 
-         <button onClick={handleStart}>Start training</button>
+         <button className="button-navy" onClick={handleStart}>Start training</button>
         </div>
       )
     }
@@ -184,27 +175,27 @@ function Train({isLogged, flashcards, userId}) {
 
     if (currentCard >= cardsToTrain.length) {
       return (
-        <div>
+        <div className="card">
           <h1>Congratulations on completing your training session</h1>
           <h2>Statistics</h2>
-          <p>Repeated flashcards: {flashcards.length}</p>
-          <p>Correct answers: {points}</p>
-          <p>Number of fails: {fails}</p>
+          <p className="correct">Repeated flashcards: {flashcards.length}</p>
+          <p className="correct">Correct answers: {points}</p>
+          <p className="alert">Number of fails: {fails}</p>
         </div>
       )
     }
     return (
-      <div>
-        <h1>Train</h1>
+      <div className="card">
         <div>
+          <p>Card front:</p>
           <p>
             {cardsToTrain[currentCard].front}
           </p>
           <form onSubmit={onSubmit}>
             {/*<input type="textarea" rows={5} cols={20} placeholder="Enter answer" value={answerInput} size="20" onChange={onChange}/>*/}
-            <input placeholder="Enter answer" value={answerInput} size={20} onChange={onChange}/>
+            <textarea placeholder="Enter answer" value={answerInput} cols="30" rows="10" onChange={onChange}/>
             <br />
-            <button type="submit">Submit answer</button>
+            <button className="button-navy" type="submit">Submit answer</button>
           </form>
         </div>
       </div>
