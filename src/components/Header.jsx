@@ -27,15 +27,15 @@ function Header({isLogged, setIsLogged}) {
     nagivate('./')
   }
   return (
-    <div>
+    <div className="nav-container">
       <nav>
         <ul>
           <li><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="myflashcards">My flashcards</NavLink></li>
           <li><NavLink to="train">Train</NavLink></li>
-          <li>
-            {isLogged ? <button onClick={ (e) => logout(e)}>Logout</button> : <NavLink to="signin">Sign In</NavLink> }
-          </li>
+
+          {isLogged ? <button className="button-navy" onClick={ (e) => logout(e)}>Logout</button> : <NavLink className="button-navy" to="signin">Sign In</NavLink> }
+
 
         </ul>
       </nav>

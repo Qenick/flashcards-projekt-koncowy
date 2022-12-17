@@ -6,7 +6,7 @@ function SignIn({setIsLoggedProp}) {
   const [modal, setModal] = useState(true);
 
   return (
-    <div>
+    <div className="main-container">
       { modal ? <LoginForm setModal={setModal} setLog={setIsLoggedProp}/> :  <SignUpForm setModal={setModal}/> }
 
     </div>

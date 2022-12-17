@@ -1,0 +1,50 @@
+@import './colors.scss';
+
+
+.main-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+
+.button-navy {
+  display: block;
+  background-color: #031d5b;
+  font-size: 1.2rem;
+  color: white;
+  padding: 20px 30px;
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.card {
+
+  border: $base-color-navy 3px solid;
+  max-width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 50px;
+  z-index: 999;
+  position: relative;
+  background-color: $base-color-yellow;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+
+  .button-navy {
+    margin: 20px auto;
+  }
+
+  input {
+    padding: 10px;
+    margin: 10px 0;
+    //height: 2rem;
+
+  }
+
+
+
+
+
+}

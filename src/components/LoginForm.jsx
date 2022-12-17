@@ -5,9 +5,12 @@ import { Button } from 'primereact/button';
 import supabase from '../services/supabase';
 
 import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
 
 
 export default function LoginForm({setLog, setModal}) {
+
+  const [loginError, setLoginError] = useState(false);
 
   const navigate = useNavigate();
   const singinUser = async (e) => {
@@ -23,7 +26,8 @@ export default function LoginForm({setLog, setModal}) {
 
 
     if (error) {
-      console.log("Error przy logowaniu")
+      console.log("Error przy logowaniu");
+
       return;
     }
 
@@ -37,21 +41,26 @@ export default function LoginForm({setLog, setModal}) {
   const handleOnClick = (e) => {
     e.preventDefault();
     setModal(false);
+
   }
 
 
   return (
-    <div>
-      <div>
-        <h1>Signin</h1>
-        <form onSubmit={singinUser}>
-            <InputText placeholder="Email" />
-            <Password toggleMask feedback={false} placeholder='Password' />
-          <br />
-            <Button type="submit" label="Signin" />
-        </form>
-        <br/>
-        <Button onClick={handleOnClick}>First time user? Sign Up!</Button>
+    <div >
+      <div className="card">
+        <div>
+          <h1>Signin</h1>
+          <form onSubmit={singinUser} className="login-form">
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder='Password' />
+
+            <button type="submit" className="button-navy">Sign - in</button>
+          </form>
+          <br/>
+          <button className="button-in-form" onClick={handleOnClick}>First time user? Sign Up!</button>
+
+        </div>
+
       </div>
     </div>
   )

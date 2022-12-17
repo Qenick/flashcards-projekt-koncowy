@@ -1,0 +1,30 @@
+@import './colors.scss';
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    display: block;
+    width: 300px;
+    text-align: center;
+    margin: 5px auto;
+  }
+}
+
+
+
+.button-in-form {
+  border: 0;
+  background-color: $base-color-yellow;
+  border-bottom: $base-color-yellow 2px solid;
+  padding: 5px;
+
+
+  &:hover {
+    border-bottom: 2px solid $base-color-navy;
+  }
+}

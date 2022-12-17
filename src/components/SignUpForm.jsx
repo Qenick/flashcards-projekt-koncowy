@@ -1,7 +1,6 @@
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
-// import { Toast } from 'primereact/toast';
 import supabase from '../services/supabase';
 
 import { useRef } from 'react';
@@ -34,39 +33,33 @@ export default function SignUpForm({setModal}) {
     navigate('');
   }
 
-  const onClick = () => {
+  const onClick = (e) => {
+    e.preventDefault()
     setModal(true);
   }
 
   return (
-    <div className="signin-container">
-      <Toast ref={errorToast} />
-      <div className="signin-form-container">
-        <h1><i className="pi pi-user"></i> Signup</h1>
-        <form onSubmit={(e) => signupUser(e)} className='signin-form'>
-          {/* Email */}
-          <span className="p-input-icon-left">
-            <i className="pi pi-user" />
-            <InputText placeholder="Email" />
-          </span>
-          <span className="p-input-icon-left">
-            <i className="pi pi-lock" />
-            <Password toggleMask feedback={false} placeholder='Password' />
-          </span>
-          <span className="p-input-icon-left">
-            <i className="pi pi-lock" />
-            <Password toggleMask feedback={false} placeholder='Re-enter password' />
-          </span>
-          <br />
-          <span>
-            <Button label="Signup" />
-            <br />
+    <div className="card">
+      <div className="">
+        <h1>Signup</h1>
+        <form className="login-form" onSubmit={signupUser}>
 
-          </span>
+
+            <input type="email" id="email" placeholder="Email" />
+
+
+
+            <input type="password" placeholder='Password' />
+
+
+
+            <input type="password"  placeholder='Re-enter password' />
+
+
+          <button type="submit" className="button-navy"> Signup</button>
 
         </form>
-        <Button onClick={(e) => onClick(e)
-        } label="Already have an account?" className="p-button-link" />
+        <button className="button-in-form" onClick={onClick}> Already have an account?</button>
       </div>
     </div>
   )

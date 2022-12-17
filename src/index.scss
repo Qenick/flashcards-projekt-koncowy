@@ -1,5 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
-  font-size: 14px;
+  font-size: 1.3rem;
 }
 
 body {
@@ -14,7 +18,8 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-
 }
- @import './styles/header.scss';
+
+@import 'styles/common.scss';
+@import './styles/header.scss';
+@import './styles/loginform.scss';
